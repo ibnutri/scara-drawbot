@@ -1,7 +1,7 @@
 var five = require("johnny-five");
 var config = require("./config");
 var board = new five.Board({
-	port: ''
+	port: config.board.port
 });
 
 var stdin = process.openStdin(); 
