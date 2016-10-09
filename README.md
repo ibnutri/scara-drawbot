@@ -27,7 +27,7 @@ Try pull request
 
 ## Authors
 
- - **Ibnu Triyono** - *inital work* - @ibnutri
+ - **Ibnu Triyono** - *inital work* - [ibnutri](https://github.com/ibnutri)
 
 ## License
 
