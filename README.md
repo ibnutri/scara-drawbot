@@ -8,7 +8,7 @@ A Johnny-Five powered scara robot-arm to handle drawing on a piece of paper.
 
 Download and install the [Arduino IDE](https://www.arduino.cc/en/Main/Software) on your computer.
 
-this repository
+clone this repository, then rename config-sample.js to config.js
 
 ### Firmata installation
 
