@@ -19,7 +19,7 @@ clone this repository, then rename config-sample.js to config.js
 
 ### Hardware preparation 
 
-check __schematic folder__
+![](https://github.com/ibnutri/scara-drawbot/raw/master/schematic/png/scara-drawbot_bb.png)
 
 ## Contributing
 
