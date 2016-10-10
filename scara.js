@@ -14,6 +14,8 @@ var elbowPosition = 90 + elbowOffset;
 var shoulderPosition = 90+shoulderOffset;
 var L1 = 7; // panjang bahu ke siku cm
 var L2 = 7.5; // panjang siku ke pergelangan tangan dari cm
+var drawX = 5;
+var drawY = 5;
 board.on("ready", function() {
   
  	elbowServo = new five.Servo({
@@ -43,6 +45,9 @@ board.on("ready", function() {
  	inverseS: inverseS,
  	armMoveTo: armMoveTo
  });
+	this.on("exit", function(){
+		armMoveTo(5,5);
+	});
 });
 function test(){
 	console.log('sparta');
