@@ -10,6 +10,8 @@ Download and install the [Arduino IDE](https://www.arduino.cc/en/Main/Software) 
 
 clone this repository, then rename config-sample.js to config.js
 
+Since I'm using bluetooth module, you may want to connect your arduino to bluetooth too. I was using [this tutorial](https://github.com/rwaldron/johnny-five/wiki/Getting-Started-with-Johnny-Five-and-HC-05-Bluetooth-Serial-Port-Module)
+
 ### Firmata installation
 
 1. Open Arduino IDE
@@ -19,11 +21,27 @@ clone this repository, then rename config-sample.js to config.js
 
 ### Hardware preparation 
 
+Breadboard
 ![](https://github.com/ibnutri/scara-drawbot/raw/master/schematic/png/scara-drawbot_bb.png)
+physical image
+![](https://github.com/ibnutri/scara-drawbot/raw/master/schematic/png/scara-drawbot_image.jpg)
+
+## Current Status
+
+Still a very basic movement. you can move the arm position (x,y) using inverse kinematic. so if you put the x and y the arm will position it's shoulder and elbow to the position 
+
+## TODO
+
+- document hardware building.
+- change the servo to a stonger ones and more accuracy, or perhaps using stepper motor.
+- create HTML5 UI to use the arm.
+- create HTML5 UI using canvas to draw directly to arm.
+- input from svg / any vector file.
+
 
 ## Contributing
 
-Try pull request
+Just pull request
 
 ## Authors
 
