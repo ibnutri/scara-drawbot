@@ -46,7 +46,7 @@ board.on("ready", function() {
  	armMoveTo: armMoveTo
  });
 	this.on("exit", function(){
-		armMoveTo(5,5);
+		// armMoveTo(5,5);
 	});
 });
 function test(){
@@ -56,7 +56,32 @@ function test(){
 stdin.on('keypress', function (chunk, key) {
   	// if (key && key.ctrl && key.name == 'c') process.exit();
   	if(key.name == 'right'){
-  		console.log('rgiht');	
+  		console.log('right');	
+  		if(drawY < 10){
+  			drawY += 0.5;
+  			armMoveTo(drawX, drawY);
+  		}
+  	}
+  	if(key.name == 'left'){
+  		console.log('left');	
+  		if(drawY > 5){
+  			drawY -= 0.5;
+  			armMoveTo(drawX, drawY);
+  		}
+  	}
+  	if(key.name == 'up'){
+  		console.log('up');	
+  		if(drawX > 5){
+  			drawX -= 0.5;
+  			armMoveTo(drawX, drawY);
+  		}
+  	}
+  	if(key.name == 'down'){
+  		console.log('down');	
+  		if(drawX < 10){
+  			drawX += 0.5;
+  			armMoveTo(drawX, drawY);
+  		}
   	}
 });
 
