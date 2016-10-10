@@ -26,6 +26,7 @@ board.on("ready", function() {
 	  pin: 5,
 	  startAt: 135 + shoulderOffset
 	});
+	armMoveTo(5,5);
  	//shoulderServo.sweep();
  	// deviasi 56derajat
  	board.repl.inject({
@@ -46,31 +47,14 @@ board.on("ready", function() {
 function test(){
 	console.log('sparta');
 }
-/*
+
 stdin.on('keypress', function (chunk, key) {
-  // if (key && key.ctrl && key.name == 'c') process.exit();
-  if(chunk == 'a'){
-  	shoulderPosition += 1;
-  	shoulderServo.to(shoulderPosition);
-  	console.log('move shoulder to '+ shoulderPosition);
-  }
-  if(chunk == 'o'){
-  	shoulderPosition -= 1;
-  	shoulderServo.to(shoulderPosition);
-  	console.log('move shoulder to '+ shoulderPosition);
-  }
-  if(chunk == 'e'){
-  	elbowPosition += 1;
-  	elbowServo.to(elbowPosition);
-  	console.log('move elbow to '+elbowPosition);
-  }
-  if(chunk == 'u'){
-  	elbowPosition -= 1;
-  	elbowServo.to(elbowPosition);
-  	console.log('move elbow to '+elbowPosition);
-  }
+  	// if (key && key.ctrl && key.name == 'c') process.exit();
+  	if(key.name == 'right'){
+  		console.log('rgiht');	
+  	}
 });
-*/
+
 
 function inverseValueE(x, y){
 	var E = Math.acos( ( Math.pow(x, 2)+ Math.pow(y,2) - Math.pow(L1, 2) - Math.pow(L2,2) )/(2*L1*L2) );
