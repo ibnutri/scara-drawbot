@@ -43,7 +43,8 @@ board.on("ready", function() {
  	forwardY: forwardY,
  	inverseE: inverseE,
  	inverseS: inverseS,
- 	armMoveTo: armMoveTo
+ 	armMoveTo: armMoveTo,
+ 	makeGrid: makeGrid
  });
 	this.on("exit", function(){
 		// armMoveTo(5,5);
@@ -53,37 +54,37 @@ function test(){
 	console.log('sparta');
 }
 
-stdin.on('keypress', function (chunk, key) {
-  	// if (key && key.ctrl && key.name == 'c') process.exit();
-  	if(key.name == 'right'){
-  		console.log('right');	
-  		if(drawY < 10){
-  			drawY += 0.5;
-  			armMoveTo(drawX, drawY);
-  		}
-  	}
-  	if(key.name == 'left'){
-  		console.log('left');	
-  		if(drawY > 5){
-  			drawY -= 0.5;
-  			armMoveTo(drawX, drawY);
-  		}
-  	}
-  	if(key.name == 'up'){
-  		console.log('up');	
-  		if(drawX > 5){
-  			drawX -= 0.5;
-  			armMoveTo(drawX, drawY);
-  		}
-  	}
-  	if(key.name == 'down'){
-  		console.log('down');	
-  		if(drawX < 10){
-  			drawX += 0.5;
-  			armMoveTo(drawX, drawY);
-  		}
-  	}
-});
+// stdin.on('keypress', function (chunk, key) {
+//   	// if (key && key.ctrl && key.name == 'c') process.exit();
+//   	if(key.name == 'right'){
+//   		console.log('right');	
+//   		if(drawY < 10){
+//   			drawY += 0.5;
+//   			armMoveTo(drawX, drawY);
+//   		}
+//   	}
+//   	if(key.name == 'left'){
+//   		console.log('left');	
+//   		if(drawY > 5){
+//   			drawY -= 0.5;
+//   			armMoveTo(drawX, drawY);
+//   		}
+//   	}
+//   	if(key.name == 'up'){
+//   		console.log('up');	
+//   		if(drawX > 5){
+//   			drawX -= 0.5;
+//   			armMoveTo(drawX, drawY);
+//   		}
+//   	}
+//   	if(key.name == 'down'){
+//   		console.log('down');	
+//   		if(drawX < 10){
+//   			drawX += 0.5;
+//   			armMoveTo(drawX, drawY);
+//   		}
+//   	}
+// });
 
 
 function inverseValueE(x, y){
@@ -124,8 +125,59 @@ function toDegrees (angle) {
   return angle * (180 / Math.PI);
 }
  
- function toRadians (angle) {
+function toRadians (angle) {
   return angle * (Math.PI / 180);
+}
+function makeGrid(gridSize){
+	if(gridSize == undefined){
+		gridSize = 1;
+	}
+	// drawing board start at 5,5 and ends at 10,10
+	var drawingWidth = 5;
+	var drawingHeight = 5;
+	var drawingOffsetWidth = 5;
+	var drawingOffsetHeight = 5;
+	var currentX = 5;
+	var currentY = 5;
+	var counterHeight = 0;
+	var currentTimeline = 0;
+	var gridDelay = 500;
+	for(var i = 0; i < 3; i++){
+		while(currentX<drawingHeight+drawingOffsetHeight){
+			currentX += gridSize;
+			doSetTimeout(gridDelay*counterHeight, currentX, currentY);
+			currentTimeline = gridDelay*counterHeight;
+			counterHeight++;
+		}
+		currentY += gridSize;
+		currentTimeline+=gridDelay;
+		counterHeight += 1;
+		doSetTimeout(currentTimeline, currentX, currentY);
+		while(currentX>drawingOffsetHeight){
+			currentX -= gridSize;
+			doSetTimeout(gridDelay*counterHeight, currentX, currentY);
+			currentTimeline = gridDelay*counterHeight;
+			counterHeight++;
+		}
+		currentY += gridSize;
+		currentTimeline+=gridDelay;
+		counterHeight += 1;
+		doSetTimeout(currentTimeline, currentX, currentY);
+	}
+	while(currentX<drawingHeight+drawingOffsetHeight){
+		currentX += gridSize;
+		if(currentX < 10){
+			doSetTimeout(gridDelay*counterHeight, currentX, currentY);
+		}
+		currentTimeline = gridDelay*counterHeight;
+		counterHeight++;
+	}
+}
+function doSetTimeout(i,currentX,currentY) {
+  	setTimeout(function() { 
+		console.log('armMoveTo('+currentX+','+currentY+')');
+		armMoveTo(currentX, currentY);
+  	}, i);
 }
 
  
