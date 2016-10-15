@@ -10,6 +10,8 @@
   "author": "@ibnutri",
   "license": "MIT",
   "dependencies": {
+    "hapi": "^15.1.1",
+    "inert": "^4.0.2",
     "johnny-five": "^0.9.39",
     "keypress": "^0.2.1"
   }
