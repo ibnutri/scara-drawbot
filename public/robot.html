@@ -10,7 +10,7 @@ Use keyboard arrow button
 </body>
 <script type="text/javascript">
 	$(document).ready(function(){
-		var socket = io.connect("localhost:3000");
+		var socket = io.connect(window.location.hostname+":3000");
 		//jquery run
 		$(document).keyup(function(event){
 			console.log('keyup '+ keyToButton(event.which));
