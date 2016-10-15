@@ -8,7 +8,8 @@ var board = new five.Board({
 });
 
 var stdin = process.openStdin(); 
-require('tty').setRawMode(true);    
+
+kinematic.start(); // priming the variable
 
 var elbowOffset = 38;
 var shoulderOffset = 7;
