@@ -10,9 +10,11 @@ Use keyboard arrow button
 </body>
 <script type="text/javascript">
 	$(document).ready(function(){
+		var socket = io.connect("localhost:3000");
 		//jquery run
 		$(document).keyup(function(event){
 			console.log('keyup '+ keyToButton(event.which));
+			socket.emit("move", keyToButton(event.which) );
 		});
 		$(document).keydown(function(event){
 			console.log('keydown '+event.which);
