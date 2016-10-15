@@ -18,7 +18,9 @@ var io = require('socket.io')(server.listener);
 io.on('connection', function (socket) {
 
     console.log('New connection!');
-
+    socket.on("move", function(direction){
+        console.log(direction);
+    });
     
 });
 server.register(Inert, () => {});
