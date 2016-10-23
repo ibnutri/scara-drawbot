@@ -31,7 +31,7 @@ physical image
 Still a very basic movement. you can move the arm position (x,y) using inverse kinematic. so if you put the x and y the arm will position it's shoulder and elbow to the position 
 
 ## TODO
-
+- re-engineer arm to use non direct controlling the arm. using 1:1 ratio gear. to make bearing as load handler.
 - document hardware building.
 - change the servo to a stonger ones and more accuracy, or perhaps using stepper motor.
 - create HTML5 UI to use the arm.
