@@ -1,8 +1,6 @@
 var five = require("johnny-five");
 var config = require("./config");
 var kinematic = require("./lib/kinematic.js");
-console.log(kinematic);
-console.log(config);
 var board = new five.Board({
 	port: config.board.port
 });
