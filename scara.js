@@ -11,7 +11,7 @@ kinematic.start(); // priming the variable
 
 var elbowOffset = 38;
 var shoulderOffset = 7;
-
+var animation;
 board.on("ready", function() {
   	config.board.test1();
  	elbowServo = new five.Servo({
@@ -25,8 +25,47 @@ board.on("ready", function() {
 	  startAt: 135 + shoulderOffset
 	});
 
-	kinematicReturn = kinematic.armMoveTo( 5, 5 );
-	console.log(kinematicReturn);
+ 	animation = new five.Animation(shoulderServo);
+ 	animation2 = new five.Animation(elbowServo);
+ 	
+	kinRet1 = kinematic.armMoveTo(5,5);
+	kinRet2 = kinematic.armMoveTo(5,9);
+	kinRet3 = kinematic.armMoveTo(10,9);
+	kinRet4 = kinematic.armMoveTo(10,5);
+	kinRet5 = kinematic.armMoveTo(5,5);
+	animation.enqueue({
+		duration:8000,
+		cuePoints: [0, 0.25, 0.5, 0.75, 1.0],
+		keyFrames://[
+			[{degrees: kinRet1.shoulder},{degrees: kinRet2.shoulder},{degrees: kinRet3.shoulder},{degrees: kinRet4.shoulder},{degrees: kinRet5.shoulder}]
+			// [{degrees: kinRet1.elbow},{degrees: kinRet2.elbow},{degrees: kinRet3.elbow}]
+			// [{degrees: 80},{degrees: 90},{degrees: 100}]
+			// [{},{},{}]
+		//]
+		,
+		metronomic: true,
+		loop: true
+	});
+	animation2.enqueue({
+		duration:8000,
+		cuePoints: [0, 0.25, 0.5, 0.75, 1.0],
+		keyFrames://[
+			// [{degrees: kinRet1.shoulder},{degrees: kinRet2.shoulder},{degrees: kinRet3.shoulder}],
+			[{degrees: kinRet1.elbow},{degrees: kinRet2.elbow},{degrees: kinRet3.elbow},{degrees: kinRet4.elbow},{degrees: kinRet5.elbow}]
+			// [{degrees: 80},{degrees: 90},{degrees: 100}]
+			// [{},{},{}]
+		//]
+		,
+		metronomic: true,
+		loop: true
+	});
+	
+	// animation.enqueue({
+	//     cuePoints: [0, 0.25, 0.75, 1],
+	//     keyFrames: [90, { value: 180, easing: "inQuad" }, { value: 0, easing: "outQuad" }, 90],
+
+	//     duration: 2000
+	// });
  	//shoulderServo.sweep();
  	// deviasi 56derajat
  	board.repl.inject({
@@ -42,7 +81,10 @@ board.on("ready", function() {
  	// inverseE: inverseE,
  	// inverseS: inverseS,
  	// armMoveTo: armMoveTo,
- 	makeGrid: makeGrid
+ 	makeGrid: makeGrid,
+ 	startAnim: startAnim,
+ 	animation: animation,
+ 	animation2: animation2
  });
 	this.on("exit", function(){
 		// armMoveTo(5,5);
@@ -140,5 +182,6 @@ function doSetTimeout(i,currentX,currentY) {
 		elbowServo.to(kinematicReturn.elbow);
   	}, i);
 }
-
- 
+function startAnim(){
+	animation.play();
+ }
