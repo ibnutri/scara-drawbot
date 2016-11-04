@@ -28,16 +28,29 @@ board.on("ready", function() {
  	animation = new five.Animation(shoulderServo);
  	animation2 = new five.Animation(elbowServo);
  	
-	kinRet1 = kinematic.armMoveTo(5,5);
-	kinRet2 = kinematic.armMoveTo(5,9);
-	kinRet3 = kinematic.armMoveTo(10,9);
-	kinRet4 = kinematic.armMoveTo(10,5);
-	kinRet5 = kinematic.armMoveTo(5,5);
+	kinRet1 = kinematic.armMoveTo(6,5.5);
+	kinRet2 = kinematic.armMoveTo(6.8,5.5);
+	kinRet3 = kinematic.armMoveTo(7,6);
+	kinRet4 = kinematic.armMoveTo(7.2,5.5);
+	kinRet5 = kinematic.armMoveTo(8,5.5);
+
+	kinRet6 = kinematic.armMoveTo(8.5,6);
+	kinRet7 = kinematic.armMoveTo(8.5,7);
+	kinRet8 = kinematic.armMoveTo(7.8,7.8);
+	kinRet9 = kinematic.armMoveTo(7,9);
+	kinRet10 = kinematic.armMoveTo(6.2,7.8);
+
+	kinRet11 = kinematic.armMoveTo(5.5,7);
+	kinRet12 = kinematic.armMoveTo(5.5,6);
+	kinRet13 = kinematic.armMoveTo(6,5.5);
+	
 	animation.enqueue({
 		duration:8000,
-		cuePoints: [0, 0.25, 0.5, 0.75, 1.0],
+		cuePoints: [0, 0.08, 0.16, 0.24, 0.32, 0.40, 0.48, 0.56, 0.64, 0.72, 0.80, 0.96, 1],
 		keyFrames://[
-			[{degrees: kinRet1.shoulder},{degrees: kinRet2.shoulder},{degrees: kinRet3.shoulder},{degrees: kinRet4.shoulder},{degrees: kinRet5.shoulder}]
+			[{degrees: kinRet1.shoulder},{degrees: kinRet2.shoulder},{degrees: kinRet3.shoulder},{degrees: kinRet4.shoulder},{degrees: kinRet5.shoulder},
+			{degrees: kinRet6.shoulder},{degrees: kinRet7.shoulder},{degrees: kinRet8.shoulder},{degrees: kinRet9.shoulder},
+			{degrees: kinRet10.shoulder},{degrees: kinRet11.shoulder},{degrees: kinRet12.shoulder},{degrees: kinRet13.shoulder}]
 			// [{degrees: kinRet1.elbow},{degrees: kinRet2.elbow},{degrees: kinRet3.elbow}]
 			// [{degrees: 80},{degrees: 90},{degrees: 100}]
 			// [{},{},{}]
@@ -46,12 +59,15 @@ board.on("ready", function() {
 		metronomic: true,
 		loop: true
 	});
+	animation.stop();
 	animation2.enqueue({
 		duration:8000,
-		cuePoints: [0, 0.25, 0.5, 0.75, 1.0],
+		cuePoints: [0, 0.08, 0.16, 0.24, 0.32, 0.40, 0.48, 0.56, 0.64, 0.72, 0.80, 0.96, 1],
 		keyFrames://[
 			// [{degrees: kinRet1.shoulder},{degrees: kinRet2.shoulder},{degrees: kinRet3.shoulder}],
-			[{degrees: kinRet1.elbow},{degrees: kinRet2.elbow},{degrees: kinRet3.elbow},{degrees: kinRet4.elbow},{degrees: kinRet5.elbow}]
+			[{degrees: kinRet1.elbow},{degrees: kinRet2.elbow},{degrees: kinRet3.elbow},{degrees: kinRet4.elbow},{degrees: kinRet5.elbow},
+			{degrees: kinRet6.elbow},{degrees: kinRet7.elbow},{degrees: kinRet8.elbow},{degrees: kinRet9.elbow},
+			{degrees: kinRet10.elbow},{degrees: kinRet11.elbow},{degrees: kinRet12.elbow},{degrees: kinRet13.elbow}]
 			// [{degrees: 80},{degrees: 90},{degrees: 100}]
 			// [{},{},{}]
 		//]
@@ -59,7 +75,7 @@ board.on("ready", function() {
 		metronomic: true,
 		loop: true
 	});
-	
+	animation2.stop();
 	// animation.enqueue({
 	//     cuePoints: [0, 0.25, 0.75, 1],
 	//     keyFrames: [90, { value: 180, easing: "inQuad" }, { value: 0, easing: "outQuad" }, 90],
@@ -184,4 +200,5 @@ function doSetTimeout(i,currentX,currentY) {
 }
 function startAnim(){
 	animation.play();
+	animation2.play();
  }
