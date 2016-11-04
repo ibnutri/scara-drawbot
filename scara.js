@@ -136,6 +136,8 @@ function doSetTimeout(i,currentX,currentY) {
 		console.log('armMoveTo('+currentX+','+currentY+')');
 		kinematicReturn = kinematic.armMoveTo(currentX, currentY);
 		console.log(kinematicReturn);
+		shoulderServo.to(kinematicReturn.shoulder);
+		elbowServo.to(kinematicReturn.elbow);
   	}, i);
 }
 
