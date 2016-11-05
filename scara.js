@@ -14,15 +14,18 @@ var shoulderOffset = 7;
 var animation;
 board.on("ready", function() {
   	config.board.test1();
+  	var startingPoint = kinematic.armMoveTo(5,5);
  	elbowServo = new five.Servo({
 	  pin: 6,
-	  startAt: 45 + elbowOffset
+	  // startAt: 45 + elbowOffset
+	  startAt: startingPoint.elbow
 	});
  	//elbowServo.sweep();
 
  	shoulderServo = new five.Servo({
 	  pin: 5,
-	  startAt: 135 + shoulderOffset
+	  // startAt: 135 + shoulderOffset
+	  startAt: startingPoint.shoulder
 	});
 
  	animation = new five.Animation(shoulderServo);
@@ -49,9 +52,11 @@ board.on("ready", function() {
  		var kinematicResult = kinematic.armMoveTo(love[i][0],love[i][1]);
  		var kinematicConvert = [kinematicResult.shoulder, kinematicResult.elbow];
  		loveResult.push(kinematicConvert);
- 		loveX.push({degrees: kinematicConvert.shoulder});
- 		loveY.push({degrees: kinematicConvert.elbow});
+ 		console.log(kinematicConvert);
+ 		loveX.push({degrees: kinematicConvert[0]});
+ 		loveY.push({degrees: kinematicConvert[1]});
  	}
+ 	console.log(loveX);
 	// kinRet1 = kinematic.armMoveTo(6,5.5);
 	// kinRet2 = kinematic.armMoveTo(6.8,5.5);
 	// kinRet3 = kinematic.armMoveTo(7,6);
