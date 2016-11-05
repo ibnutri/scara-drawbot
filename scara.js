@@ -16,6 +16,7 @@ var animation;
 var animation2;
 var loadedFile = '';
 var startingPoint;
+var msPerPoint = 800;
 board.on("ready", function() {
   	config.board.test1();
   	startingPoint = kinematic.armMoveTo(5,5);
@@ -124,7 +125,7 @@ function startAnim(){
 }
 function loadFile(filename){
 	if(filename == undefined){
-		filename = 'sample-image/heart.json'
+		filename = 'sample-image/cat.json'
 	}
 	var obj;
 	fs.readFile(filename, 'utf8', function (err, data) {
@@ -133,6 +134,15 @@ function loadFile(filename){
 		console.log('loaded '+obj.name);
 		loadedFile = obj.name;
 		var love = obj.path;
+		var cuePoints = [0];
+
+		for(var c = 1; c <= obj.path.length; c++){
+			var interval = 1/obj.path.length;
+			var cuePoint = c*interval ;
+			cuePoints.push(cuePoint);
+		}
+		console.log(cuePoints);
+		var duration = obj.path.length*msPerPoint;
 		animation = new five.Animation(shoulderServo);
 	 	animation2 = new five.Animation(elbowServo);
 	 	var loveResult = [];
@@ -147,16 +157,16 @@ function loadFile(filename){
 	 	}
 		
 		animation.enqueue({
-			duration:8000,
-			cuePoints: [0, 0.08, 0.16, 0.24, 0.32, 0.40, 0.48, 0.56, 0.64, 0.72, 0.80, 0.96, 1],
+			duration:duration,
+			cuePoints: cuePoints,
 			keyFrames: loveX,
 			metronomic: true,
 			loop: true
 		});
 		animation.stop();
 		animation2.enqueue({
-			duration:8000,
-			cuePoints: [0, 0.08, 0.16, 0.24, 0.32, 0.40, 0.48, 0.56, 0.64, 0.72, 0.80, 0.96, 1],
+			duration:duration,
+			cuePoints: cuePoints,
 			keyFrames:loveY,
 			metronomic: true,
 			loop: true
