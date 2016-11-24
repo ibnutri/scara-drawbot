@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="socket.io/socket.io.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/fabric.min.js"></script>
+	<title>Scara Robot dashboard</title>
+</head>
+<body>
+draw
+<div style="position: relative; width: 302px;">
+	<div id="drawingStatus" style="position: absolute; left: 50%;">drawing</div>
+	<canvas id="c" height="500" width="400" style="border: black 1px solid;position: absolute;"></canvas>	
+</div>
+</body>
+<script type="text/javascript">
+	var canvas = new fabric.Canvas('c');
+
+	var point1;
+	var point2;
+	var firstClick = false;
+	var pointsArray = [];
+	canvas.on('mouse:down', function (options) {
+		if(firstClick == false){
+			firstClick = true;
+			$('#drawingStatus').show();
+		}
+	    var x = options.e.clientX - canvas._offset.left;
+	    var y = options.e.clientY - canvas._offset.top;
+
+	    var circle = new fabric.Circle({
+	        left: x,
+	        top: y,
+	        fill: 'red',
+	        originX: 'center',
+	        originY: 'center',
+	        hasControls: false,
+	        hasBorders: false,
+	        lockMovementX: true,
+	        lockMovementY: true,
+	        radius: 5,
+	        hoverCursor: 'default'
+	    });
+
+	    canvas.add(circle);
+	    console.log("x:"+x+",y:"+y);
+	    if (point1 === undefined) { // first click
+	        point1 = new fabric.Point(x, y)
+	        var newPoint = [x,y];
+	        pointsArray.push(newPoint);
+	    } else if(point1 !== undefined && point2 === undefined){ // second click
+	        canvas.add(new fabric.Line([point1.x, point1.y, x, y], {
+	            stroke: 'blue',
+	            hasControls: false,
+	            hasBorders: false,
+	            lockMovementX: true,
+	            lockMovementY: true,
+	            hoverCursor: 'default'
+	        }))
+	        point2 = new fabric.Point(x,y);
+	        var newPoint = [x,y]
+	        pointsArray.push(newPoint);
+	    }else if(point1 !== undefined && point2 !== undefined){ // next click
+	        point1 = point2;
+	    	canvas.add(new fabric.Line([point1.x, point1.y, x, y], {
+	            stroke: 'blue',
+	            hasControls: false,
+	            hasBorders: false,
+	            lockMovementX: true,
+	            lockMovementY: true,
+	            hoverCursor: 'default'
+	        }))
+	        point2 = new fabric.Point(x,y);
+	        var newPoint = [x,y];
+	        pointsArray.push(newPoint);
+	        // point2 = new fabric.Point(x,y);
+	    }
+	});
+	$(document).ready(function(){
+		$(document).keyup(function(e) {
+		 	if (e.keyCode == 27) { // escape key maps to keycode `27`
+		    	// <DO YOUR WORK HERE>
+		    	if(firstClick == true){
+		    		firstClick = false;
+			    	$('#drawingStatus').hide();
+		    	}
+		    	point1 = undefined;
+		    	point2 = undefined;
+			}
+		});
+	});
+</script>
+</html>

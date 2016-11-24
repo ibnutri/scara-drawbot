@@ -125,7 +125,7 @@ function startAnim(){
 }
 function loadFile(filename){
 	if(filename == undefined){
-		filename = 'sample-image/cat.json'
+		filename = 'sample-image/box.json'
 	}
 	var obj;
 	fs.readFile(filename, 'utf8', function (err, data) {
@@ -133,8 +133,14 @@ function loadFile(filename){
 		obj = JSON.parse(data);
 		console.log('loaded '+obj.name);
 		loadedFile = obj.name;
+		if(obj.speed != undefined){
+			msPerPoint = obj.speed;
+		}else{
+			msPerPoint = 800;
+		}
 		var love = obj.path;
 		var cuePoints = [0];
+		
 
 		for(var c = 1; c <= obj.path.length; c++){
 			var interval = 1/obj.path.length;
@@ -148,8 +154,15 @@ function loadFile(filename){
 	 	var loveResult = [];
 	 	var loveX = [];
 	 	var loveY = [];
+ 		if(obj.size != undefined){
+ 			var imageScaling = 4/obj.size.width; // grid 4 lebarnya
+ 		}
 	 	for(var i = 0; i < love.length; i++){
-	 		var kinematicResult = kinematic.armMoveTo(love[i][0],love[i][1]);
+	 		if(imageScaling != undefined){
+		 		var kinematicResult = kinematic.armMoveTo(love[i][0]*imageScaling+5,love[i][1]*imageScaling+5);
+	 		}else{
+	 			var kinematicResult = kinematic.armMoveTo(love[i][0],love[i][1]);
+	 		}
 	 		var kinematicConvert = [kinematicResult.shoulder, kinematicResult.elbow];
 	 		loveResult.push(kinematicConvert);
 	 		loveX.push({degrees: kinematicConvert[0]});
@@ -160,16 +173,16 @@ function loadFile(filename){
 			duration:duration,
 			cuePoints: cuePoints,
 			keyFrames: loveX,
-			metronomic: true,
-			loop: true
+			metronomic: false,
+			loop: false
 		});
 		animation.stop();
 		animation2.enqueue({
 			duration:duration,
 			cuePoints: cuePoints,
 			keyFrames:loveY,
-			metronomic: true,
-			loop: true
+			metronomic: false,
+			loop: false
 		});
 		animation2.stop();
 	});
