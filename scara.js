@@ -138,9 +138,10 @@ function loadFile(filename){
 		}else{
 			msPerPoint = 800;
 		}
+		obj.path = convertCoordinate(obj.path);
 		var love = obj.path;
 		var cuePoints = [0];
-		
+
 
 		for(var c = 1; c <= obj.path.length; c++){
 			var interval = 1/obj.path.length;
@@ -190,4 +191,15 @@ function loadFile(filename){
 function parkArm(){
 	shoulderServo.to(startingPoint.shoulder);
 	elbowServo.to(startingPoint.elbow);
+}
+/*
+	convert default x,y coordinate from fabric.js to x,y coordinate of scara robot
+*/
+function convertCoordinate(fabricCoordinate){
+	var scaraCoordinate = [];
+	for(var i = 0; i < fabricCoordinate.length; i++){
+		var reversedCoordinate = fabricCoordinate[i].reverse();
+		scaraCoordinate.push(reversedCoordinate);
+	}
+	return scaraCoordinate;
 }
