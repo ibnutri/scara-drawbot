@@ -14,7 +14,9 @@ draw
 </div>
 </body>
 <script type="text/javascript">
-	var canvas = new fabric.Canvas('c');
+	var canvas = new fabric.Canvas('c',{
+		isDrawingMode: true
+	});
 
 	var point1;
 	var point2;
