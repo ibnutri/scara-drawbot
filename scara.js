@@ -125,7 +125,7 @@ function startAnim(){
 }
 function loadFile(filename){
 	if(filename == undefined){
-		filename = 'sample-image/box.json'
+		filename = 'sample-image/flag.json'
 	}
 	var obj;
 	fs.readFile(filename, 'utf8', function (err, data) {
