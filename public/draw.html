@@ -33,6 +33,7 @@ draw
 	});
 	canvas.on('mouse:down', function(event){
 		isDrawing = true;
+		addNode();
 	});
 	canvas.on('mouse:up', function(event){
 		isDrawing = false;
