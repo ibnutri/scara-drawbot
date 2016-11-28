@@ -36,6 +36,12 @@ draw
 	});
 	canvas.on('mouse:up', function(event){
 		isDrawing = false;
+		if(firstClick == true){
+			firstClick = false;
+	    	$('#drawingStatus').hide();
+		}
+		point1 = undefined;
+		point2 = undefined;
 	});
     function addNode(){
     	if(isDrawing == false){
