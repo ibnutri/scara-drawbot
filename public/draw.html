@@ -25,12 +25,22 @@ draw
 	var nodeSpawnInterval;
 	var pointerX = 0;
 	var pointerY = 0;
+	var isDrawing = false;
 	canvas.on('mouse:move', function (event) {
 		var pointer = canvas.getPointer(event.e);
 		pointerX = pointer.x;
 		pointerY = pointer.y;
 	});
+	canvas.on('mouse:down', function(event){
+		isDrawing = true;
+	});
+	canvas.on('mouse:up', function(event){
+		isDrawing = false;
+	});
     function addNode(){
+    	if(isDrawing == false){
+    		return;
+    	}
     	if(firstClick == false){
 			firstClick = true;
 			$('#drawingStatus').show();
@@ -100,7 +110,7 @@ draw
 		});
 		nodeSpawnInterval = window.setInterval( function(){
 			addNode();
-		},1000);
+		},300);
 	});
 </script>
 </html>
